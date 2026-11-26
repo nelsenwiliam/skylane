@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SKYLANE — Island Ring Runner</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game"></div>
+
+<!-- ============ HUD (visible while flying) ============ -->
+<div id="hud" style="display:none">
+  <div class="panel" id="panel-left">
+    <div class="row"><span class="label">SPEED</span><span class="value"><span id="speed">0</span><span class="unit"> kt</span></span></div>
+    <div class="row"><span class="label">ALTITUDE</span><span class="value"><span id="alt">0</span><span class="unit"> ft</span></span></div>
+    <div class="row"><span class="label">HEADING</span><span class="value" id="heading">000°</span></div>
+    <div class="bar-row"><span class="label">THR</span><div class="bar"><div class="fill" id="throttle-fill"></div></div></div>
+    <div class="bar-row"><span class="label">FUEL</span><div class="bar"><div class="fill" id="fuel-fill"></div></div></div>
+    <div class="bar-row"><span class="label">DMG</span><div class="bar"><div class="fill dmg" id="damage-fill"></div></div></div>
+  </div>
+
+  <div class="panel" id="panel-right">
+    <div class="row"><span class="label">SCORE</span><span class="value" id="score">0</span></div>
+    <div class="row"><span class="label">RINGS</span><span class="value" id="rings">0/10</span></div>
+    <div class="row"><span class="label">TIME</span><span class="value" id="timer">4:00</span></div>
+    <div class="row"><span class="label">CAM</span><span class="value" id="cam-mode">CHASE</span></div>
+    <canvas id="attitude" width="84" height="84"></canvas>
+  </div>
+
+  <div id="compass"><div id="compass-strip"></div><div id="compass-needle">▼</div></div>
+  <div id="objective"></div>
+  <div id="ring-arrow"><span class="arrow-dir">▲</span><span class="arrow-dist">0m</span></div>
+  <div id="message"></div>
+  <div id="crosshair">+</div>
+  <div id="banner" style="display:none"><div class="banner-title"></div><div class="banner-sub"></div></div>
+  <div id="cockpit-dash" style="display:none">
+    <div class="gauge"><div class="needle" id="needle-spd"></div><span>SPD</span></div>
+    <div class="gauge"><div class="needle" id="needle-alt"></div><span>ALT</span></div>
+    <div class="gauge"><div class="needle" id="needle-thr"></div><span>THR</span></div>
+    <div class="gauge"><div class="needle" id="needle-fuel"></div><span>FUEL</span></div>
+  </div>
+</div>
+
+<!-- ============ MENU ============ -->
+<div id="menu">
+  <div class="menu-card">
+    <h1>SKYLANE</h1>
+    <p class="tagline">Island ring runner — one prop, one island, three ways to fly it.</p>
+    <div class="missions">
+      <button class="mission-btn" data-mode="rings">
+        <b>① RING RUN</b><span>Fly all 10 rings over the island. Beat the clock.</span>
+      </button>
+      <button class="mission-btn" data-mode="landing">
+        <b>② LANDING</b><span>Short final onto runway 09. Slow, centred, gentle.</span>
+      </button>
+      <button class="mission-btn" data-mode="timetrial">
+        <b>③ TIME TRIAL</b><span>90 seconds. Rings keep coming — grab all you can.</span>
+      </button>
+    </div>
+    <p class="controls">
+      <b>W/S</b> throttle &nbsp;·&nbsp; <b>A/D or ←/→</b> bank &nbsp;·&nbsp; <b>↑/↓</b> pitch &nbsp;·&nbsp;
+      <b>C</b> camera &nbsp;·&nbsp; <b>P</b> pause &nbsp;·&nbsp; <b>R</b> restart &nbsp;·&nbsp; <b>M</b> mute<br>
+      Watch the fuel gauge — empty tanks mean a glide, not a flight.
+    </p>
+  </div>
+</div>
+
+<!-- ============ GAME OVER ============ -->
+<div id="gameover" style="display:none">
+  <div class="menu-card">
+    <h1 id="over-title">CRASHED</h1>
+    <p class="tagline" id="over-sub"></p>
+    <p id="over-score"></p>
+    <div class="missions">
+      <button class="mission-btn" id="restart-btn"><b>↻ FLY AGAIN (R)</b><span>Same mission, fresh plane, full tanks.</span></button>
+      <button class="mission-btn" id="menu-btn"><b>☰ MENU</b><span>Pick a different sortie.</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
