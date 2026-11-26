@@ -10,12 +10,16 @@ const THREE = window.THREE;
 export function createCamera() {
   const camera = new THREE.PerspectiveCamera(62, 1280 / 720, 0.1, 7000);
   let mode = 'chase'; // 'chase' | 'cockpit'
+  let chaseDist = CONFIG.camera.chaseDistance;
   const chasePos = new THREE.Vector3(0, 130, -680);
   return {
     camera,
     get mode() { return mode; },
     toggle() { mode = mode === 'chase' ? 'cockpit' : 'chase'; return mode; },
     setMode(m) { mode = m; },
+    // Screenshot shots may pull the chase camera closer so the plane reads
+    // bigger; normal play always uses the CONFIG distance.
+    setChaseDistance(d) { chaseDist = d; },
     update(plane, dt) {
       const fwd = forwardVector(plane);
       if (mode === 'cockpit') {
@@ -34,7 +38,7 @@ export function createCamera() {
         camera.fov += (58 + plane.speed * 0.12 - camera.fov) * Math.min(1, dt * 4);
         camera.updateProjectionMatrix();
       } else {
-        const dist = CONFIG.camera.chaseDistance;
+        const dist = chaseDist;
         const h = CONFIG.camera.chaseHeight;
         const tx = plane.pos.x - fwd.x * dist;
         const ty = plane.pos.y - fwd.y * dist + h;
@@ -57,9 +61,9 @@ export function createCamera() {
     snapTo(plane) {
       const fwd = forwardVector(plane);
       chasePos.set(
-        plane.pos.x - fwd.x * CONFIG.camera.chaseDistance,
-        plane.pos.y - fwd.y * CONFIG.camera.chaseDistance + CONFIG.camera.chaseHeight,
-        plane.pos.z - fwd.z * CONFIG.camera.chaseDistance,
+        plane.pos.x - fwd.x * chaseDist,
+        plane.pos.y - fwd.y * chaseDist + CONFIG.camera.chaseHeight,
+        plane.pos.z - fwd.z * chaseDist,
       );
       camera.position.copy(chasePos);
     },

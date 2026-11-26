@@ -257,6 +257,7 @@ if (shot) {
     }
   }
   cameraRig.setMode(shot.camera);
+  if (shot.chaseDistance) cameraRig.setChaseDistance(shot.chaseDistance);
   cameraRig.snapTo(plane);
   menuEl.style.display = 'none';
   hud.setVisible(true);

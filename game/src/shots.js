@@ -12,20 +12,26 @@ export function parseShotParams() {
 // Returns a spawn + mission + camera setup for the requested shot, or null.
 export function shotSetup(shot) {
   if (shot === 'cover') {
-    // chase view: plane mid-frame, first ring ahead, island + runway behind it
+    // chase view: plane mid-frame, first ring ahead, island + runway behind it.
+    // Captured early (plane ~100m out, ring a target ahead, not swallowing
+    // the plane) and with a closer chase camera so the plane reads big and
+    // level — the autopilot has barely rolled at this point.
     return {
       mode: 'rings',
       camera: 'chase',
       spawn: { x: -760, y: 105, z: 180, yaw: -2.21, speed: 52, throttle: 0.62 },
-      autopilot: true, holdSeconds: 3.2,
+      autopilot: true, holdSeconds: 1.8, chaseDistance: 11,
     };
   }
   if (shot === 'cockpit') {
+    // Captured on the straight approach to ring 1, before the turn for ring 2
+    // banks the plane: a banked cockpit camera tilts the horizon and lets the
+    // terrain fill the top-right corner of the frame (the green strip).
     return {
       mode: 'rings',
       camera: 'cockpit',
       spawn: { x: -720, y: 100, z: 210, yaw: -2.21, speed: 55, throttle: 0.65 },
-      autopilot: true, holdSeconds: 2.4,
+      autopilot: true, holdSeconds: 1.5,
     };
   }
   if (shot === 'ring') {
