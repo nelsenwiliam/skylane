@@ -1,5 +1,11 @@
 # SKYLANE — Island Ring Runner
 
+[![make.fun](https://make.fun/badge/best-flight-game-20261126-0057.svg)](https://make.fun/bounty/best-flight-game-20261126-0057)
+[![rank](https://make.fun/badge/best-flight-game-20261126-0057/nelsenwiliam/skylane/rank.svg)](https://make.fun/bounty/best-flight-game-20261126-0057)
+[![reward](https://make.fun/badge/best-flight-game-20261126-0057/nelsenwiliam/skylane/reward.svg)](https://make.fun/bounty/best-flight-game-20261126-0057)
+
+Entry for the [make.fun "Make the best flight game" bounty](https://make.fun/bounty/best-flight-game-20261126-0057).
+
 A 3D arcade flight game that runs from static files in any desktop browser.
 One prop plane, one procedural island, three ways to fly it.
 
